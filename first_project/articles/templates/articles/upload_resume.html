@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Upload a candidate</h2>
+        <form class="site-form" action="{% url 'articles:upload'%}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{formResume.as_p}}
+            {{formExp.as_p}}
+            {{formEdu.as_p}}
+            <input type="submit" value="Create">
+        </form>
+    </div>
+
+{% endblock %}

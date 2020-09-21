@@ -1,0 +1,70 @@
+{% extends 'base_layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    
+    <form action="{% url 'articles:search'%}" method="POST">
+        <div class="input-group">
+            <div class="row">
+            <input type="text" name='email_title' placeholder="Enter position here"></input>
+            <input type="submit" class="submit" value="Send Emails" id='submit-position'> </input>
+        </div>
+            {% csrf_token %}
+<br>
+<div class="container">
+    <input type="checkbox" name="select-all" id="select-all" />
+    <label for="select-all">Check All</label>
+</div>
+</div>
+<div class="container">
+
+ <table class="table table-hover" id='result-table'>
+     <thead>
+         <th>select</th>
+         <th>id</th>
+         <th>name</th>
+         <th>recruiter</th>
+         <th>bytedance application position</th>
+         <th>work experience</th>
+         <th>leadership experience</th>
+         <th>most recent company</th>
+         <th>most recent title</th>
+     </thead>
+
+     {% for exp in exps %} 
+        {% if exp.expid == 0 %}
+     <tr>
+         <td><input type="checkbox" name='checks' value='{{ exp.canid.id}}'></td>
+         <td>{{ exp.canid.id }}</td>
+         <td><a href="{{ exp.canid.bytedance_application_link }}">{{exp.canid.name}}</a></td>
+         <td>{{ exp.canid.hunter}}</td>
+         <td>{{ exp.canid.bytedance_application_position}}</td>
+         <td>{{ exp.canid.work_experience }}</td>
+         <td>{{ exp.canid.leadership_experience}}</td>
+         <!-- <td>{{ exp.canid.location }}</td>  -->
+         <td>{{ exp.company}}</td>
+         <td>{{ exp.position }}</td>
+
+         <!-- <td>{{exp.expid}}</td>
+         <td>{{exp.company}}</td>
+         <td>{{exp.position}}</td>
+         <td>{{exp.start_date}}</td> 
+         <td>{{exp.canid.hunter}}</td> -->
+         <!-- <td>{{profile.experience|slice:"1"}}</td>
+         <td>{{profile.experience|slice:'1'}}</td> -->
+     </tr>
+        {% endif %}
+     {% endfor %}
+
+
+ </table>
+</form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" 
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+crossorigin="anonymous"></script>
+<script src="{% static 'check_all.js' %}"></script>
+
+
+{% endblock %}

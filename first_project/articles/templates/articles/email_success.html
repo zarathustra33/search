@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-9">
+    <h2> Great, {{request.user| title}}! </h2>
+      <h2> Your alert email to {% for hunter in hunters %} {{hunter|title }}{% endfor %} is on the way!</h2>
+</div>
+</div>
+
+
+{% endblock %}

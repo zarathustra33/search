@@ -1,0 +1,167 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<div class="jumbotron">
+    <div class="container">
+    <h1 style="color:#457B9D"> Fill in the form to search Candidates! </h1>
+    </div>
+<br>
+<br>
+
+    <div class="container">
+        <form action="{% url 'articles:search' %}" method="POST" id="seach-form">
+            <div class="container-fluid">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1"><b>Profile Keywords</b></span>
+                <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                {{ form.content }}
+            </div>
+        </div>
+         <br>
+         <br>
+
+        <div class="container">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1"><b>Applied Position</b></span>
+                <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                {{ form.applied_position }}
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="container">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1"><b>Most Recent Experience</b></span>
+                <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                {{ form.recent_work }}
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="container">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1"><b>  Titles   </b></span>
+                <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                {{ form.titles }}
+            </div></div>
+        <br>
+        <br>
+            <div class="container">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1"><b> Companies  </b></span>
+                <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                {{ form.companies }}
+            </div> </div>
+        <br>
+        <br>
+          
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1"><b> Location  </b></span>
+                        <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                            {{ form.location}}
+                     </div>
+                 </div>
+                 <div class="col-lg-3">
+                    
+                        <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                            {{ form.browse_Available_Location}}
+                     </div>
+                 </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1"><b> Work Experience :</b> </span>
+                        <span class="input-group-addon" id="sizing-addon1"> min </span>
+                        <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                            {{ form.min_work_length}}
+                        <span class="input-group-addon" id="sizing-addon1"> max </span>
+                            {{ form.max_work_length}}
+                     </div>
+                 </div>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><b> Leadership Experience :</b> </span>
+                            <span class="input-group-addon" id="sizing-addon1"> min </span>
+                        <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                                {{ form.min_leadership_length}}
+                            <span class="input-group-addon" id="sizing-addon1"> max </span>
+                                {{ form.max_leadership_length}}
+                        </div>
+                       
+                    </div>
+        </div></div>
+        
+   
+            <!-- <div class="container"> -->
+            <!-- <div class="input-group"> -->
+                <!-- <span class="input-group-addon" id="sizing-addon1"><b> Area of focus  </b></span> -->
+                <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"> -->
+                
+            <!-- </div>  -->
+        <!-- </div> -->
+           
+                    
+
+
+
+
+
+
+            
+            {% csrf_token %}
+            <br> <br>
+            <div class="container">
+                
+                <div class="row">
+                    <div class="col-lg-9"> </div>
+                    <div class="col-lg-3">
+                        <input type="submit" id="search" class="btn btn-info btn-lg" value="Search" style="background-color:#457B9D">
+                    </div>
+            </div>
+        </div>
+        </div>  
+        
+        </form>
+        
+    </div>
+
+    <!-- <h1> Article list</h1>
+    <p> article_list</p>
+    <div class="listings"> -->
+        <!-- {% if request.method == 'GET' %}
+            {% for article in articles %} 
+            <div class="article">
+                <h2><a href="{%url 'articles:detail' article.slug%}">{{article.title}}</article></a></h2>
+                <p>{{article.snippet}}</article></p>
+                <p>{{article.date}}</p>
+            </div>
+            {% endfor %}
+            {% for profile in profiles %} 
+            <div class="profiles">
+                <h2>{{profile.name}}</article></a></h2>
+                <p>{{profile.email}}</article></p>
+                <p>{{profile.id}}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+             {% for article in articles %} 
+                <div class="article">
+                    <h2><a href="{%url 'articles:detail' article.slug%}">{{article.content_auto}}</article></a></h2>
+                    <p>{{article.name }} </p>
+                    <p>{{article.date}}</p>
+                </div>
+            {% endfor %} -->
+        <!-- {% endif %} --> 
+    </div>
+</div>
+{% endblock %}
+
