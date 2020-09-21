@@ -13,12 +13,12 @@ class CandidateInfo(models.Model):
     area_of_focus=models.CharField(max_length=264,blank=True)
     bytedance_application_position=models.CharField(max_length=264,blank=True)
     bytedance_application_link=models.URLField(blank=True)
-    linkedin=models.URLField(blank=True)
-    hunter=models.CharField(max_length=264,blank=True)
-    applied_location=models.CharField(max_length=264,blank=True)
-    resume_content=models.TextField(default=None,blank=True)
-    resume_file=models.FileField(default=None,blank=True)
-    location=models.CharField(max_length=264,blank=True)
+    linkedin=models.URLField(blank=True,null=True)
+    hunter=models.CharField(max_length=264,blank=True,null=True)
+    applied_location=models.CharField(max_length=264,blank=True,null=True)
+    resume_content=models.TextField(default=None,blank=True,null=True)
+    resume_file=models.FileField(default=None,blank=True,null=True)
+    location=models.CharField(max_length=264,blank=True,null=True)
     def __str__(self):
         return self.name
 

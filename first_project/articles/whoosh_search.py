@@ -6,9 +6,17 @@ import os
 parent_dir=os.getcwd()
 # ix = index.open_dir("/Users/xujiahui/Downloads/ocbang/bytedance database/recent experience index")
 ix = index.open_dir(parent_dir+'/articles/recent experience index')
+<<<<<<< HEAD
 def load_obj(name ):
     # with open('/Users/xujiahui/Downloads/ocbang/data/' + name + '.pkl', 'rb') as f:
     with open(parent_dir+'/' + name + '.pkl', 'rb') as f:    
+=======
+# ix = index.open_dir("/Users/xujiahui/Downloads/ocbang/bytedance database/recent experience index")
+
+def load_obj(name ):
+#     with open('/Users/xujiahui/Downloads/ocbang/data/' + name + '.pkl', 'rb') as f:
+    with open(parent_dir+'/' + name + '.pkl', 'rb') as f: 
+>>>>>>> 5e91e2e7789c29d7c3d1371730ab70761b0b10f8
         return pickle.load(f)
 
 structured_profiles=load_obj('bytedance_dictionary_with_loc_renamed')
