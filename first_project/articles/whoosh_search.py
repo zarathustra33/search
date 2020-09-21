@@ -2,13 +2,16 @@ from whoosh.qparser import QueryParser,MultifieldParser
 from whoosh import query
 import whoosh.index as index
 import pickle
-ix = index.open_dir("/Users/xujiahui/Downloads/ocbang/bytedance database/recent experience index")
-
+import os
+parent_dir=os.getcwd()
+# ix = index.open_dir("/Users/xujiahui/Downloads/ocbang/bytedance database/recent experience index")
+ix = index.open_dir(parent_dir+'/articles/recent experience index')
 def load_obj(name ):
-    with open('/Users/xujiahui/Downloads/ocbang/data/' + name + '.pkl', 'rb') as f:
+    # with open('/Users/xujiahui/Downloads/ocbang/data/' + name + '.pkl', 'rb') as f:
+    with open(parent_dir+'/' + name + '.pkl', 'rb') as f:    
         return pickle.load(f)
 
-structured_profiles=load_obj('bytedance_dictionary')
+structured_profiles=load_obj('bytedance_dictionary_with_loc_renamed')
 
 
 initiate=[p['id'] for p in structured_profiles]
