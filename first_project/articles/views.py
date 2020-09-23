@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Article,CandidateInfo,CandidateEdu,CandidateExperience
+from .models import Article,CandidateInfo,CandidateEdu,CandidateExperience,RequestLog
 from django.contrib.auth.decorators import login_required
 from .import forms
+import datetime
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 # from haystack.query import SearchQuerySet
 # from whoosh.qparser import QueryParser,MultifieldParser
@@ -46,6 +47,7 @@ def article_detail(request,slug):
 @login_required(login_url="/accounts/login/")
 def article_create(request):
     if request.method=='POST':
+        
         form=forms.CreateArticle(request.POST,request.FILES)
         if form.is_valid():
             # save article to bd
@@ -62,6 +64,7 @@ def article_create(request):
 @login_required(login_url="/accounts/login/")
 def upload_resume(request):
     if request.method=='POST':
+        
         formResume=forms.UploadResume(request.POST,request.FILES)
         formExp=forms.CreatExperience(request.POST)
         formEdu=forms.CreateEdu(request.POST)
@@ -97,14 +100,15 @@ def upload_resume(request):
 @login_required(login_url="/accounts/login/")
 def search_view(request):
     form = forms.SearchCandidate()
-    articles=Article.objects.all()
     if request.method=='POST':
+        print(request.POST.dict())
         if request.POST.get('email_title')!=None:
             print('roger that ')
             checked=request.POST.getlist('checks')
             position=request.POST.get('email_title')
             print(checked)
             
+            logged_in_user=request.user.first_name
             checked_ids=[int(ident) for ident in checked]
 
             filtered_result=[p for p in structured_profiles if p['id'] in checked_ids]
@@ -120,7 +124,8 @@ def search_view(request):
                 grouped_candidates=matched_candidates[lucky_hunter]
                 RECIPIENT=hunterEmails[lucky_hunter]
                 BODY_HTML=generate_body_html(grouped_candidates,position,lucky_hunter)
-                from_email='sharon.xu@ocbang.com'
+                # from_email='sharon.xu@ocbang.com'
+                from_email=hunterEmails[logged_in_user]
                 text_content='you have matched up candidates alert!'
             # ## send emails 
             # subject, from_email, to = 'hello', 'sharon.xu@ocbang.com', 'sharon.xu@ocbang.com'
@@ -135,7 +140,11 @@ def search_view(request):
     # if request.method=='POST':
         #form=forms.SearchCandidate(request.POST)
             # articles=SearchQuerySet().autocomplete(content_auto=request.POST.get('titles',''))
-            logged_in_user=request.user
+            
+            ## save the search record to the database
+
+
+            logged_in_user=request.user.first_name
             
             titles_kw=request.POST.get('titles','')
             applied_position_kw=request.POST.get('applied_position','')
@@ -148,6 +157,27 @@ def search_view(request):
             work_upper_limit=request.POST.get('max_work_length',50)
             leadership_lower_limit=request.POST.get('min_leadership_length',default=0)
             leadership_upper_limit=request.POST.get('max_leadership_length')
+           ### save the request.
+            search_request,status=RequestLog.objects.get_or_create(
+                content_requst=content_kw,
+                applied_positon_request=applied_position_kw,
+                recent_work_request=recent_kw,
+                companies_request=company_kw,
+                titles_request=titles_kw,
+                location_request=location_kw,
+                min_work_length_request=work_lower_limit,
+                max_work_length_request=work_upper_limit,
+                min_leadership_length_request=leadership_lower_limit,
+                max_leadership_length_request=leadership_upper_limit,
+                user=request.user,
+                time=datetime.datetime.now()
+            )
+            print(search_request)
+            print(status)
+            print('request saved')
+           
+           
+           
             if leadership_lower_limit=='':
                 leadership_lower_limit=0
             if leadership_upper_limit=='':
@@ -199,7 +229,7 @@ def search_view(request):
             result_profile_ids=[p.id for p in result_profiles]
             result_exps=CandidateExperience.objects.filter(canid_id__in=result_profile_ids)
 
-            if str(logged_in_user) not in ['sharon','audrey','nina','lewis']:
+            if str(logged_in_user) not in ['sharon','audrey','nina','lewis','kirby','ella']:
             #     print(logged_in_user)
             #     print('is not in the account manager list')
                 result_profiles=result_profiles.filter(hunter=str(logged_in_user))

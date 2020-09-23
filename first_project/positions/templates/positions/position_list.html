@@ -1,0 +1,52 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+     <h2 style="text-align: center;"> Welcome to the Positions Board!</h2>
+     <!-- <h2> Latest Announcements</h2> -->
+     {% for client in clients %}
+        <h3> {{ client.name }}</h3>
+   
+            <table class="table table-hover" id='result-table'>
+                <thead>
+                    <th class="col-lg-6">Position </th>
+                    <th class="col-lg-3">Location</th>
+                    <th class="col-lg-3">Account Manager</th>
+                </thead>
+            {% for position in position_list %} 
+             {% if position.company.name == client.name %}
+                <tr>
+                    <td class="col-lg-6"> {{ position.name}}</td>
+                    <td class="col-lg-3">{{ position.location}}</td>
+                    <td class="col-lg-3">{{ position.account_manager}}</td>
+                    <!-- <li><a href="{{ position.get_absolute_url }}">{{ position.name}}</a></li> -->
+                    
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+        {% endfor %}
+    </div>
+
+   
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/cars?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/cars?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+
+
+</div>
+{% endblock %}

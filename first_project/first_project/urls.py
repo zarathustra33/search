@@ -29,7 +29,8 @@ urlpatterns = [
     url(r'^articles/',include('articles.urls')), ## to look up the articles app to include the urls inside the file
     url(r'^about/$',view.about),
     url(r'^$',article_views.article_list,name='home'),
-    url(r'^accounts/',include('accounts.urls'))
+    url(r'^accounts/',include('accounts.urls')),
+    url(r'^positions/',include('positions.urls'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()

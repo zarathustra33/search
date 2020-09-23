@@ -2,17 +2,53 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','first_project.settings')
 import django
 django.setup()
-
+import pandas as pd
 import pickle
+from articles.models import Positions,CandidateInfo,CandidateEdu,CandidateExperience,ClientCompany
+from positions.models import Position,Client
 
+
+def load_obj(name ):
+    with open('/Users/xujiahui/Documents/OCbang data/' + name + '.pkl', 'rb') as f:
+        return pickle.load(f)
+
+am_board=load_obj('am_board')
+
+
+def Populate_am():
+    print(ClientCompany.objects.get(name='TikTok'))
+    for record in am_board:
+        print(record)
+        position_name=record[0]
+        location=record[1]
+        am=record[2]
+        company_name=record[3]
+        # a_position=Positions.objects.get_or_create(
+        a_position=Position.objects.get_or_create(
+            name=position_name,
+            location=location,
+            account_manager=am,
+            # company=ClientCompany.objects.get(name=company_name)
+            company=Client.objects.get(name=company_name)
+        )
+
+'''
 def load_obj(name ):
     with open('/Users/xujiahui/Downloads/ocbang/data/' + name + '.pkl', 'rb') as f:
         return pickle.load(f)
 
 structured_profiles=load_obj('bytedance_dictionary_with_loc_renamed')
+'''
 
-from articles.models import CandidateInfo,CandidateEdu,CandidateExperience
+'''
+companies=['TikTok','Weee!','Tencent','News Break']
 
+def populate_client():
+    for company in companies:
+        a_client=ClientCompany.objects.get_or_create(name=company)[0]
+'''
+
+'''
 def populate_edu():
 
     for p in structured_profiles:
@@ -96,9 +132,11 @@ def populate_info():
             location=location
 
         )[0]
-
+'''
 if __name__=='__main__':
     # populate_info()
     # populate_experience()
-    populate_edu()
+    # populate_edu()
+    # populate_client()
+    Populate_am()
     print('populating info complete!')
