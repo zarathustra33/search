@@ -1,0 +1,64 @@
+{% extends 'base_layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    
+   
+<br>
+
+</div>
+<div class="container">
+
+ <table class="table table-hover" id='result-table'>
+     <thead>
+         <th>Candidate</th>
+         <th>Client Company</th>
+         <th>Current Company</th>
+         <th>Current Position</th>
+         <th>submited date</th>
+         <th>flag experience</th>
+         <th>Pipline status</th>
+         <th>Survey</th>
+        
+     </thead>
+
+     {% for person in candidates %} 
+   
+     <tr>
+        
+         <!-- <td><a href="{{ exp.canid.bytedance_application_link }}">{{exp.canid.name}}</a></td> -->
+         <td><a href="{{ person.get_absolute_url }}">{{ person.name }}</a> </td>
+         <td>{{ person.applied_company }}</td>
+         <td>{{ person.get_current_company }}</td>
+         <td>{{ person.get_current_position }}</td>
+         <!-- <td>{{ person.client_position }}</td> -->
+         <td>{{ person.resume_submited_date }}</td>
+         <td>{{ person.flag_experience }}</td>
+         <td><a href="{% url 'articles:candidate-update' pk=person.pk %}">{{ person.status }}</a></td>
+        <td><a class='btn btn-default btn-sm'href="{% url 'articles:survey' pk=person.pk %}"></a></td>
+         <!-- <td>{{ exp.canid.location }}</td>  -->
+     
+
+         <!-- <td>{{exp.expid}}</td>
+         <td>{{exp.company}}</td>
+         <td>{{exp.position}}</td>
+         <td>{{exp.start_date}}</td> 
+         <td>{{exp.canid.hunter}}</td> -->
+         <!-- <td>{{profile.experience|slice:"1"}}</td>
+         <td>{{profile.experience|slice:'1'}}</td> -->
+     </tr>
+     
+     {% endfor %}
+
+
+ </table>
+</form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" 
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+crossorigin="anonymous"></script>
+<script src="{% static 'check_all.js' %}"></script>
+
+
+{% endblock %}

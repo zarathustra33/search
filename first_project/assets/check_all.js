@@ -17,3 +17,10 @@ $('#submit-position').click(function(event){
         alert('to send email, please select at least one candidate');
     }
 })
+
+
+$(function () {
+    $("#id_resume_submited_date").datetimepicker( {
+       format:'Y-m-d',
+    });
+  });

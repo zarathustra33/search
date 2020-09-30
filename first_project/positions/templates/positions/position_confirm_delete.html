@@ -1,0 +1,23 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <br>
+    <h1 style="text-align: center;color: #457b9d;"> Delete {{position.name}} ?</h1>
+    <br>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="col-lg-4"></div>
+        <div class="col-lg-2">
+        <input type="submit"  class="btn btn-danger" value="Delete"></input></div>
+        <div class="col-lg-2">
+
+        <a href="{% url 'positions:position-detail' pk=position.pk %}"> Cancel</a>
+    </div>
+</div>
+    <div class="col-lg-4"></div>
+    </form>
+</div>
+{% endblock %}

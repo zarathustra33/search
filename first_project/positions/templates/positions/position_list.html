@@ -11,15 +11,17 @@
             <table class="table table-hover" id='result-table'>
                 <thead>
                     <th class="col-lg-6">Position </th>
-                    <th class="col-lg-3">Location</th>
-                    <th class="col-lg-3">Account Manager</th>
+                    <th class="col-lg-2">Location</th>
+                    <th class="col-lg-2">Account Manager</th>
+                    <th class="col-lg-2">Recruiter</th>
                 </thead>
             {% for position in position_list %} 
              {% if position.company.name == client.name %}
                 <tr>
-                    <td class="col-lg-6"> {{ position.name}}</td>
-                    <td class="col-lg-3">{{ position.location}}</td>
-                    <td class="col-lg-3">{{ position.account_manager}}</td>
+                    <td class="col-lg-6"><a href="{{ position.get_absolute_url }}"> {{ position.name}} </a></td>
+                    <td class="col-lg-2">{{ position.location}}</td>
+                    <td class="col-lg-2">{{ position.account_manager}}</td>
+                    <td class="col-lg-2">{{ position.recruiter}}</td>
                     <!-- <li><a href="{{ position.get_absolute_url }}">{{ position.name}}</a></li> -->
                     
                 </tr>
@@ -30,7 +32,7 @@
     </div>
 
    
-    {% if is_paginated %}
+    <!-- {% if is_paginated %}
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
@@ -44,7 +46,7 @@
                 {% endif %}
             </span>
         </div>
-    {% endif %}
+    {% endif %} -->
 
 
 

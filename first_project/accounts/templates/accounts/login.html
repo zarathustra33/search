@@ -1,14 +1,31 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
+<div class="row">
+    
+<div class="container">
+    <div class="jumbotron vertical-center">
     <h1> Login</h1>
     <form class="site-form" action="{% url 'accounts:login'%}" method="post">
         {% csrf_token %}
-        {{form}}
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+        {{form.username}}
+    </div>
+        <div class="col"></div>
+    </div>
+        <br>
+        <br>
+        <br>
+        {{form.password}}
         {% if request.GET.next %}
 
             <input type="hidden" name="next" value="{{request.GET.next}}">
-        {%endif%}
+        {% endif %}
         <input type="submit" value="Login">
     </form>
+</div>
+</div>
+</div>
 {% endblock%}

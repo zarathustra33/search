@@ -1,0 +1,51 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+
+
+
+<div class="container">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+   <div class="jumbotron">
+    <h2 style="text-align: center;"> Post a position</h2>
+    <br>
+    <br>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- ['company','name','location','account_manager','recruiter','tips','description','file'] -->
+    <div class="row">
+        
+        <div class="col-lg-4"><label for='id_company'>Company:    </label> {{ form.company }}</div>
+        <div class="col-lg-4"><label for='id_name'>Position:     </label>  {{ form.name }}</div>
+        <div class="col-lg-4"><label for='id_location'>Location:    </label>  {{ form.location }}</div>
+    </div>
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-lg-4"><label for='id_account_manager'>AM:   </label>{{ form.account_manager }}</div>
+        <div class="col-lg-4"><label for='id_company'>Company:   </label>{{ form.recruiter }}</div>
+    </div>
+    <hr>
+
+    <div class="col-lg-6">
+        <label for='id_description'>Job Description:</label>
+        <p>{{ form.description}}</p>
+        
+        <p>{{ form.file}}</p>
+    </div>
+    <div class="col-lg-6">
+    
+        <label for='id_tips'>Tips:</label>
+        <p>{{ form.tips }}</p>
+        
+    </div>
+    <div> <input type="submit" value="submit"> </input></div>
+    
+    </form>
+</div>
+</div>
+<div class="col-lg-1"></div>
+</div>
+
+{% endblock %}

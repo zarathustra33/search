@@ -13,6 +13,10 @@ urlpatterns = [
     # url(r'^upload/$',views.upload_resume,name='upload'),
     # url(r'^(?P<slug>[\w-]+)/$',views.article_detail,name="detail"),
     
-    url(r'^$',views.PositionListView.as_view(),name='position-list'),
-    path('<int:pk>/',views.PositionDetailView.as_view(),name='position-detail')
+    path('',views.PositionListView.as_view(),name='position-list'),
+    path('create/',views.PositionCreateView.as_view(),name='position-create'),
+    path('<int:pk>/',views.PositionDetailView.as_view(),name='position-detail'),
+    path('update/<int:pk>',views.PositionUpdateView.as_view(),name='position-update'),
+    path('delete/<int:pk>',views.PositionDeleteView.as_view(),name='delete')
+   
 ]

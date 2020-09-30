@@ -1,15 +1,93 @@
 {% extends 'base_layout.html' %}
+{% load static %}
+
+{% block js %}
+
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js" 
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+crossorigin="anonymous"></script> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+$(function () {
+      $("#id_resume_submited_date").datepicker(); });
+   
+  </script>
+{% endblock %}
+
 
 {% block content %}
     <div class="container">
-        <h2>Upload a candidate</h2>
+      <div class="jumbotron">
+        <h2 style="text-align:center">Upload a candidate</h2>
         <form class="site-form" action="{% url 'articles:upload'%}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{formResume.as_p}}
-            {{formExp.as_p}}
-            {{formEdu.as_p}}
+            <h3> Position Details </h3>
+            <br>
+            <div class="container">
+                <div class="col-lg-4">Client: {{ formResume.applied_company }}</div>
+                <div class="col-lg-8">Position: {{ formResume.client_position }}</div>
+               
+            </div>
+            <br>
+                 <div class="container">
+                  <div class="col-lg-4">Resume submited date: {{ formResume.resume_submited_date }}</div>
+                  <div class="col-lg-4">Upload Resume: {{ formResume.resume_file }}</div>
+                  <div class="col-lg-4">Duplicated: <br> {{ formResume.duplicated}}</div>
+                  
+          </div>
+            <br>
+            <hr>
+            <h3> Contact Details </h3>
+                <br>
+                <div class="container">
+                    <div class="col-lg-4">Name: {{ formResume.name }}</div>
+                    <div class="col-lg-4">Phone Number: {{ formResume.phone_number }}</div>
+                    <div class="col-lg-4">Email: {{ formResume.email}}</div>
+                    <div class="col-lg-4">Location: {{ formResume.location}}</div>
+                    <div class="col-lg-4">Linkedin: {{ formResume.linkedin}}</div>
+                    <div class="col-lg-4">Flag experience: <br> {{ formResume.flag_experience}}
+                   
+                </div> 
+                </div>
+             <hr>
+             <h3> Education Background </h3>
+        <br>
+        <div class="container">
+            
+            <div class="col-lg-4">Degree: {{ formEdu.degree }}</div>
+            <div class="col-lg-4">Major: {{ formEdu.major }}</div>
+            
+            <div class="col-lg-4">University: {{ formEdu.university}}</div>
+        </div>
+             <h3> Work Experience Overview: </h3>
+             <br>
+             <div class="container">
+                 <div class="col-lg-4">Work experience (yrs): {{ formResume.work_experience }} </div>
+                 <div class="col-lg-4">Related work experience (yrs): {{ formResume.related_work_experience }} </div>
+                 <div class="col-lg-4">Leadership experience (yrs): {{ formResume.leadership_experience }} </div>
+                 <div class="col-lg-12">Area of focus: {{ formResume.area_of_focus }}</div>
+             </div>
+          <hr><br>
+          <h3> Work Experience:  </h3>
+          <div class="container">
+            <div class="col-lg-4">Company: {{ formExp.company}}</div>
+            <div class="col-lg-4">Position: {{ formExp.position }}</div>
+            <div class="col-lg-2">Start: {{ formExp.start_date }}  </div>
+            <div class="col-lg-2">End: {{ formExp.end_date }} </div>
+            <br>
+            <br>
+            <div class="col-lg-6"> Description: {{ formExp.job_description}}</div>
+            
+        </div>
+        <hr>
+            
+        
+  
             <input type="submit" value="Create">
         </form>
+      </div>
     </div>
-
 {% endblock %}
+
+

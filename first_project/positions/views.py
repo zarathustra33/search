@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 # from .models import Article,CandidateInfo,CandidateEdu,CandidateExperience,RequestLog
 from django.contrib.auth.decorators import login_required
@@ -35,3 +36,21 @@ class PositionDetailView(DetailView):
     # def get_object(self):
     #     id_=self.kwargs.get('id')
     #     return get_object_or_404(Position,id=id_)
+
+class PositionCreateView(CreateView):
+    model=Position
+
+    template_name='positions/position_create.html'
+    fields=['company','name','location','account_manager','recruiter','tips','description','file']
+    context_object_name='form'
+
+class PositionUpdateView(UpdateView): 
+    model=Position
+    template_name='positions/position_update.html'
+    context_object_name='form'
+    fields=['name','account_manager','recruiter','tips','description','file']
+
+class PositionDeleteView(DeleteView):
+    model=Position
+    success_url= reverse_lazy('positions:position-list')
+    

@@ -4,33 +4,64 @@ import django
 django.setup()
 import pandas as pd
 import pickle
-from articles.models import Positions,CandidateInfo,CandidateEdu,CandidateExperience,ClientCompany
+from articles.models import CandidateInfo,CandidateEdu,CandidateExperience
 from positions.models import Position,Client
+import pandas as pd
 
+jd=pd.read_csv('/Users/sharon/Downloads/jd.csv')
+jd_list=jd.values.tolist()
 
+parent_dir=os.getcwd()
+# ix = index.open_dir("/Users/xujiahui/Downloads/ocbang/bytedance database/recent experience index")
+# ix = index.open_dir(parent_dir+'/articles/recent experience index')
+
+def clean_positions():
+    na=Position.objects.filter(description='nan').update(description='')
+    
+
+'''
 def load_obj(name ):
-    with open('/Users/xujiahui/Documents/OCbang data/' + name + '.pkl', 'rb') as f:
+    with open(parent_dir+'/' + name + '.pkl', 'rb') as f:
         return pickle.load(f)
+# am_board=load_obj('am_board')
+structured_profiles=load_obj('bytedance_dictionary_with_loc_renamed')
+def update_candidate():
+    # CandidateInfo.objects.all().update(applied_company=Client.objects.get(name='TikTok'))
+    for p in structured_profiles:
+        companies=[e['Company'].lower() for e in p['experience']]
+        giant_companies=['google','facebook','uber','amazon',
+        'microsfot','linkedin','apple','twitter',
+        'netflix','waymo']
+        experienced=set(companies).intersection(set(giant_companies))
+        if len(experienced)>0:
+            print(experienced)
+            CandidateInfo.objects.filter(pk=p['id']).update(flag_experience=True)
+        else:
+            CandidateInfo.objects.filter(pk=p['id']).update(flag_experience=False)
+'''
 
-am_board=load_obj('am_board')
+# def Populate_am():
+#     # print(ClientCompany.objects.get(name='TikTok'))
+#     for record in jd_list:
+#         print(record)
+#         position_name=record[0]
+#         location=record[4]
+#         am=record[5]
+#         company_name=record[1]
+#         description=record[2]
+#         recruiter=record[6]
+#         # a_position=Positions.objects.get_or_create(
+#         a_position=Position.objects.get_or_create(
+#             name=position_name,
+#             location=location,
+#             account_manager=am,
+#             recruiter=recruiter,
+#             description=description,
+#             # company=ClientCompany.objects.get(name=company_name)
+#             company=Client.objects.get(name=company_name)
+#         )
 
 
-def Populate_am():
-    print(ClientCompany.objects.get(name='TikTok'))
-    for record in am_board:
-        print(record)
-        position_name=record[0]
-        location=record[1]
-        am=record[2]
-        company_name=record[3]
-        # a_position=Positions.objects.get_or_create(
-        a_position=Position.objects.get_or_create(
-            name=position_name,
-            location=location,
-            account_manager=am,
-            # company=ClientCompany.objects.get(name=company_name)
-            company=Client.objects.get(name=company_name)
-        )
 
 '''
 def load_obj(name ):
@@ -138,5 +169,7 @@ if __name__=='__main__':
     # populate_experience()
     # populate_edu()
     # populate_client()
-    Populate_am()
+    # Populate_am()
+    # update_candidate()
+    clean_positions()
     print('populating info complete!')

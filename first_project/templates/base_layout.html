@@ -6,7 +6,14 @@
      <meta charset="utf-8">
      <title> OCBang Search System </title>
      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
- </head>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     <script>
+     $(function () {
+           $("#id_resume_submited_date").datepicker(); });
+        
+       </script>
+    </head>
 
  <body>
      <div class="wrapper">
@@ -27,13 +34,17 @@
                 <li><a class="navbar-link" href="{% url 'articles:search' %}">Search</a></li>
                 <!-- <li><a class="navbar-link" href="{% url 'articles:upload'%}" >Upload a Resume</a></li> -->
                 <li><a class="navbar-link" href="{% url 'articles:create'%}" >Announce</a></li>
+                <li><a class="navbar-link" href="{% url 'positions:position-list' %}" >Positions</a></li>
+                <li><a class="navbar-link" href="{% url 'positions:position-create' %}" >Post</a></li>
+                <li><a class="navbar-link" href="{% url 'articles:upload' %}" >Upload</a></li>
+                <li><a class="navbar-link" href="{% url 'articles:board' %}" >Personal Board</a></li>
                 <li><a class="navbar-link" href="{% url 'admin:index' %}" >Admin</a></li>
                  </ul>
                 <ul class="nav navbar-nav navbar-right">
                         <li class="navbar-text">Hello {{user|title}}</li>
                     <!-- <form class="logout-link" action="{% url 'accounts:logout'%}" method="post"> -->
                        <li><form   action="{% url 'accounts:logout'%}" method="post">
-                        {% csrf_token%}
+                        {% csrf_token %}
                         <button  class="btn btn-defalt" type="submit"> Logout</button>
                     </form>
                 </li>

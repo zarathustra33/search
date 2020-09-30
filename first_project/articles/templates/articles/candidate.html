@@ -1,0 +1,99 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+
+<div class="container" style="color:#8d99ae;">
+   <div class="col-lg-11">
+    <div class="jumbotron">
+        <div class=" row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <h2 style="text-align: center;"> <b>{{ candidate.name}} </b></h2>
+            </div>
+            
+        </div>
+       
+        <h3> Position Details </h3>
+            <br>
+            <div class="container">
+                <div class="col-lg-4">Client: {{ candidate.applied_company }}</div>
+                <div class="col-lg-4">Position: {{ candidate.client_position }}</div>
+                <div class="col-lg-4">Status: {{ candidate.status}}</div>
+            </div>
+            <br>
+                 <div class="container">
+                <div class="col-lg-4">Resume submited date: {{ candidate.resume_submited_date}}</div>
+
+     {% if candidate.resume_file %}
+     <div class="col-lg-4"><a  href="{{candidate.resume_file.url}}"> Download Resume</a></div>
+   {% endif %}  
+            </div>
+      
+         <hr><br>
+        <h3> Contact Details </h3>
+            <br>
+            <div class="container">
+                <div class="col-lg-4">Name: {{ candidate.name }}</div>
+                <div class="col-lg-4">Phone Number: {{ candidate.phone_number }}</div>
+                <div class="col-lg-4">Email: {{ candidate.email}}</div>
+                <div class="col-lg-4">Location: {{ candidate.location}}</div>
+                <div class="col-lg-4">Flag experience: {{ candidate.flag_experience}}</div>
+            </div>
+         <hr><br>
+         <h3> Education Background </h3>
+            <br>
+            {% for e in edu %}
+            <div class="container">
+                
+                <div class="col-lg-4">Degree: {{ e.degree }}</div>
+                <div class="col-lg-4">Major: {{ e.major }}</div>
+                <div class="col-lg-4">Date: {{ e.start_date }} ~ {{ e.end_date }}</div>
+                <div class="col-lg-12">University: {{ e.university}}</div>
+            </div>
+            {% endfor %}
+         <hr><br>
+         <h3> Work Experience Overview: </h3>
+            <br>
+            <div class="container">
+                <div class="col-lg-4">Work experience: {{ candidate.work_experience }} years</div>
+                <div class="col-lg-4">Related work experience: {{ candidate.related_work_experience }} years</div>
+                <div class="col-lg-4">Leadership experience: {{ candidate.leadership_experience }} years</div>
+                <div class="col-lg-12">Area of focus: {{ candidate.area_of_focus }}</div>
+            </div>
+         <hr><br>
+         <h3> Work Experience:  </h3>
+            <br>
+            {% for e in experience %}
+            <div class="container">
+                <div class="col-lg-4">Company: {{ e.company}}</div>
+                <div class="col-lg-4">Position: {{ e.position }}</div>
+                <div class="col-lg-4">Time: {{ e.start_date }} ~ {{ e.end_date }}</div>
+                <br>
+                <br>
+                <div class="col-lg-6"> Description: {{ e.job_description}}</div>
+                
+            </div>
+            <hr>
+            {% endfor %}
+        <br>
+
+    </div>
+</div> 
+<div class="col-lg-1">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a class="btn btn-default" href="{% url 'articles:survey' pk=candidate.pk %}"> Survey</a>
+    <br>
+    <br>
+    <br>
+    <a class="btn btn-default" href="{% url 'articles:candidate-update' pk=candidate.pk %}">Update</a>
+</div>
+</div>
+
+
+
+
+{% endblock %}

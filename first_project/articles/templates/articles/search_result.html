@@ -37,8 +37,8 @@
          <td><input type="checkbox" name='checks' value='{{ exp.canid.id}}'></td>
          <td>{{ exp.canid.id }}</td>
          <td><a href="{{ exp.canid.bytedance_application_link }}">{{exp.canid.name}}</a></td>
-         <td>{{ exp.canid.hunter}}</td>
-         <td>{{ exp.canid.bytedance_application_position}}</td>
+         <td>{{ exp.canid.hunter|title}}</td>
+         <td>{{ exp.canid.applied_position}}</td>
          <td>{{ exp.canid.work_experience }}</td>
          <td>{{ exp.canid.leadership_experience}}</td>
          <!-- <td>{{ exp.canid.location }}</td>  -->

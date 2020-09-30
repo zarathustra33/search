@@ -1,0 +1,75 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<div class="container">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+    <div class="jumbotron">
+        <h2 style="text-align: center;color:#457B9D">Interview Note for {{candidate}}</h2>
+        <br>
+        
+        <form method="post" id='surveyform' data-depts-url="{% url 'articles:ajax_load_depts'  %}" novalidate>
+          {% csrf_token %}
+          
+          <h4>Company</h4>
+          {{ form.company}}
+          <br>
+          <h4>Which vertical/department - supervisor does he/she belong to?</h4>
+          {{ form.department}}
+          <br>
+          <h4>Explain if not above - please specify the department & supervisor names</h4>
+          {{ form.other_department}}
+          <br>
+          <h4>Which team is he/she on?</h4>
+          {{ form.team}}
+          <br>
+          <h4>How many people are there in his/her team?</h4>
+          {{ form.team_size }}
+          <br>
+          <h4>What's his/her expectation on the base in $K?</h4>
+          {{ form.base_expectation}}
+          <br>
+          <h4>What's his/her expectation on the total package in $K?</h4>
+          {{ form.total_expectation}}
+          <br>
+          <h4>Willingness to relocate to China (only for bilingual candidates)</h4>
+          {{form.will_to_china}}
+          <br>
+          <h4>Team management</h4>
+          {{ form.team_management}}
+          <br>
+          <h4>If >= Team Lead/Manager, how many people does he/she lead?</h4>
+          {{form.people_in_lead}}
+          <br>
+          <h4>Reasons for departure</h4>
+          {{form.reason_for_departure}}
+          <br>
+          <h4>Other reason for departure</h4>
+          {{form.other_reason_for_departure}}
+          <br>
+          <button type="submit">Save</button>
+         
+        </form>
+            </div>
+        
+        </div></div>
+    <div class="col-lg-2"></div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_company").change(function () {
+      var url = $("#surveyform").attr("data-depts-url");  // get the url of the `load_cities` view
+      var companyId = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'company': companyId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_department").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+{% endblock %}

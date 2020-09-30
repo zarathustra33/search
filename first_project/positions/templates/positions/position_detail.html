@@ -3,20 +3,43 @@
 {% block content %}
 
 <div class="container">
+  <div class="col-lg-10">
     <div class="jumbotron">
-     <h2 style="text-align: center;"> Position Detail</h2>
-     <h3>{{ position.name }}</h3>
-     <h4>{{ position.company}}</h4>
-     <h4>Location: {{position.location}}</h4>
-     <h4>AM: {{position.account_manager}}</h4>
-     
-     
-           
+    
+     <h2 style="color: #457b9d;text-align: center;">{{ position.name }}</h2>
+     <div class="row" style="color:#6c757d;">
+     <div class="col-lg-4"><h4><b>Client:</b> {{ position.company}}</h4></div>
+     <div class="col-lg-4"><h4><b>Location:</b> {{position.location}}</h4></div>
+     <div class="col-lg-4"><h4><b>AM:</b> {{position.account_manager}}</h4></div>
     </div>
+    {% if position.description %}
+    <hr>
+    <h4 style="color:#6c757d"> <b>Job Description:</b></h4>
+     <p >{{ position.description }}</p>
+     <hr>
+     {% endif %}
 
+     {% if position.file %}
+        <a href="{{position.file.url}}"> Download Job Description</a>
+      {% endif %}        
+     
    
-
-
+    <div class="container">
+    
+    </div>
+  </div>
+</div>
+    <div class="col-lg-2">
+      <br>
+      <br>
+      
+      <a class="btn btn-default " href="{% url 'positions:position-update' pk=position.pk %}">Update</a>
+      <br>
+      <br>
+    <a class="btn btn-default " href="{% url 'positions:delete' pk=position.pk %}">Delete </a>
+    
+    </div>
+</div>
 
 
 {% endblock %}
